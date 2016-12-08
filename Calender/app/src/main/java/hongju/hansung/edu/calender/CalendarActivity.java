@@ -3,9 +3,13 @@ package hongju.hansung.edu.calender;
 import java.util.ArrayList;
 import java.util.Date;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.view.View.OnClickListener;
@@ -31,17 +35,12 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        //Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
-      //  startActivity(intent);
-
-
 
         textYear = (TextView) this.findViewById(R.id.edit1);
         textMon = (TextView) this.findViewById(R.id.edit2);
 
         mItems = new ArrayList<String>();
-        adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, mItems);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mItems);
 
         GridView gird = (GridView) this.findViewById(R.id.grid1);
         gird.setAdapter(adapter);
@@ -57,7 +56,30 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
         Button btnmove = (Button) this.findViewById(R.id.bt1);
         btnmove.setOnClickListener(this);
+    }
 
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);}
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        final FragmentTransaction fragmentTransaction =
+                getFragmentManager().beginTransaction();
+        switch (item.getItemId()) {
+            case R.id.week:
+                fragmentTransaction.replace(R.id.fragment,new Week());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                return true;
+            case R.id.day:
+                fragmentTransaction.replace(R.id.fragment, new Day());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -68,7 +90,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             int mon = Integer.parseInt(textMon.getText().toString());
             fillDate(year, mon);
         }
-
     }
 
     private void fillDate(int year, int mon) {
@@ -95,7 +116,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         for (int i = 1; i <= last; i++) {
             mItems.add(i + "");
         }
-
         adapter.notifyDataSetChanged();
 
     }
@@ -112,5 +132,4 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             startActivity(intent);
         }
     }
-
 }

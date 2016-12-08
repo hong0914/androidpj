@@ -8,13 +8,11 @@
     android:background="#ffffff"
     android:orientation="vertical">
 
-
     <ImageView
         android:id="@+id/countdown"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center" />
-
 
     <ImageView
         android:id="@+id/fire"
@@ -29,7 +27,6 @@
         android:layout_height="100dp"
         android:layout_gravity="bottom|center_horizontal"
         android:src="@drawable/roket"/>
-
 
 </FrameLayout>
 

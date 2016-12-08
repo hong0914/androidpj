@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     FrameLayout mFrame;
     ImageView mRocket;
     ImageView mFirework;
-    ImageView mCountDown;
     int mScreenHeight;
 
 
@@ -29,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mFrame = (FrameLayout)findViewById(R.id.activity_main);
         mFirework = (ImageView) findViewById(R.id.fire);
+        mRocket = (ImageView) findViewById(R.id.rocket);
     }
 
     @Override
@@ -45,9 +46,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startRocketTweenAnimation() {
-        Animation fire_anim = AnimationUtils.loadAnimation(this, R.anim.roket);
-        mFirework.startAnimation(fire_anim);
-
+        Animation rocket_anim = AnimationUtils.loadAnimation(this, R.anim.roket);
+        mRocket.startAnimation(rocket_anim);
     }
 
     private void startFireTweenAnimation() {
