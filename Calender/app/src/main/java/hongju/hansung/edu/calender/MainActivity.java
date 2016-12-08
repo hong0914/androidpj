@@ -1,173 +1,99 @@
 package hongju.hansung.edu.calender;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import android.app.Activity;
-import android.content.Context;
+import android.animation.Animator;
+import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.TextView;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
-public class MainActivity extends Activity {
-    private TextView tvDate;
-    private GridAdapter gridAdapter;
-    private ArrayList<String> dayList;
-    private GridView gridView;
-    private Calendar mCal;
-    private ArrayAdapter<String> adapter;
-    private TextView textYear;
-    private TextView textMon;
+public class MainActivity extends AppCompatActivity {
+
+    final String TAG = "AnimationTest";
+    FrameLayout mFrame;
+    ImageView mRocket;
+    ImageView mFirework;
+    ImageView mCountDown;
+    int mScreenHeight;
+
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
-
-        tvDate = (TextView)findViewById(R.id.tv_date);
-        gridView = (GridView)findViewById(R.id.gridview);
-        textYear = (TextView) this.findViewById(R.id.edit1);
-        textMon = (TextView) this.findViewById(R.id.edit2);
-
-        long now = System.currentTimeMillis();
-
-        final Date date = new Date(now);
-
-
-        final SimpleDateFormat curYearFormat = new SimpleDateFormat("yyyy", Locale.KOREA);
-
-        final SimpleDateFormat curMonthFormat = new SimpleDateFormat("MM", Locale.KOREA);
-
-        final SimpleDateFormat curDayFormat = new SimpleDateFormat("dd", Locale.KOREA);
-
-
-        //현재 날짜 텍스트뷰에 뿌려줌
-
-        tvDate.setText(curYearFormat.format(date) + "/" + curMonthFormat.format(date));
-        tvDate.setTextColor(getResources().getColor(android.R.color.black));
-
-        //gridview 요일 표시
-
-        dayList = new ArrayList<String>();
-        dayList.add("일");
-        dayList.add("월");
-        dayList.add("화");
-        dayList.add("수");
-        dayList.add("목");
-        dayList.add("금");
-        dayList.add("토");
-
-
-        mCal = Calendar.getInstance();
-
-        //이번달 1일 무슨요일인지 판단 mCal.set(Year,Month,Day)
-        mCal.set(Integer.parseInt(curYearFormat.format(date)),
-                Integer.parseInt(curMonthFormat.format(date)) - 1, 1);
-        int dayNum = mCal.get(Calendar.DAY_OF_WEEK);
-
-        //1일 - 요일 매칭 시키기 위해 공백 add
-        for (int i = 1; i < dayNum; i++) {
-            dayList.add("");
-        }
-
-        setCalendarDate(mCal.get(Calendar.MONTH) + 1);
-        gridAdapter = new GridAdapter(getApplicationContext(), dayList);
-        gridView.setAdapter(gridAdapter);
+        mFirework = (ImageView) findViewById(R.id.fire);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-    // 해당 월에 표시할 일 수 구함
-    private void setCalendarDate(int month) {
-        mCal.set(Calendar.MONTH, month - 1);
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        mScreenHeight = displaymetrics.heightPixels;
 
-        for (int i = 0; i < mCal.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-            dayList.add("" + (i + 1));
-        }
+         startRocketTweenAnimation();
+         startFireTweenAnimation();
     }
 
-    // 그리드뷰 어댑터
-    private class GridAdapter extends BaseAdapter {
-        private final List<String> list;
-        private final LayoutInflater inflater;
+    private void startRocketTweenAnimation() {
+        Animation fire_anim = AnimationUtils.loadAnimation(this, R.anim.roket);
+        mFirework.startAnimation(fire_anim);
 
-         /* 생성자
-         * @param context
-         * @param list
-         */
+    }
 
-        public GridAdapter(Context context, List<String> list) {
+    private void startFireTweenAnimation() {
+        Animation fire_anim = AnimationUtils.loadAnimation(this, R.anim.fire);
+        mFirework.startAnimation(fire_anim);
+        fire_anim.setAnimationListener(animationListener);
+    }
 
-            this.list = list;
-            this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+    Animation.AnimationListener animationListener = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+            Log.i(TAG, "onAnimationStart");
         }
 
         @Override
-
-        public int getCount() {
-            return list.size();
+        public void onAnimationEnd(Animation animation) {
+            Log.i(TAG, "onAnimationEnd");
+            finish();
+            startActivity(new Intent(getApplicationContext(), CalendarActivity.class));
         }
 
         @Override
-
-        public String getItem(int position) {
-            return list.get(position);
+        public void onAnimationRepeat(Animation animation) {
+            Log.i(TAG, "onAnimationRepeat");
         }
+    };
 
+    Animator.AnimatorListener animatorListener = new Animator.AnimatorListener() {
+        @Override
+        public void onAnimationStart(Animator animator) {
+            Log.i(TAG, "onAnimationStart");
+        }
 
         @Override
-
-        public long getItemId(int position) {
-            return position;
+        public void onAnimationEnd(Animator animator) {
+            Log.i(TAG, "onAnimationEnd");
         }
 
         @Override
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder = null;
-
-            if (convertView == null) {
-                convertView = inflater.inflate(R.layout.gritem, parent, false);
-                holder = new ViewHolder();
-                holder.tvItemGridView = (TextView)convertView.findViewById(R.id.tv_item_gridview);
-                convertView.setTag(holder);
-            } else {
-                holder = (ViewHolder)convertView.getTag();
-            }
-            holder.tvItemGridView.setText("" + getItem(position));
-
-            //해당 날짜 텍스트 컬러,배경 변경
-
-            mCal = Calendar.getInstance();
-
-            //오늘 day 가져옴
-
-            Integer today = mCal.get(Calendar.DAY_OF_MONTH);
-
-            String sToday = String.valueOf(today);
-
-            if (sToday.equals(getItem(position))) { //오늘 day 텍스트 컬러 변경
-
-                holder.tvItemGridView.setTextColor(getResources().getColor(android.R.color.black));
-            }
-            return convertView;
+        public void onAnimationCancel(Animator animator) {
+            Log.i(TAG, "onAnimationCancel");
         }
-    }
 
-
-    private class ViewHolder {
-        TextView tvItemGridView;
-    }
+        @Override
+        public void onAnimationRepeat(Animator animator) {
+            Log.i(TAG, "onAnimationRepeat");
+        }
+    };
 }

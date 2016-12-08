@@ -31,6 +31,11 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
+        //Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
+      //  startActivity(intent);
+
+
+
         textYear = (TextView) this.findViewById(R.id.edit1);
         textMon = (TextView) this.findViewById(R.id.edit2);
 

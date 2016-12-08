@@ -1,62 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-    <EditText
-        android:id="@+id/edit1"
+
+
+    <ImageView
+        android:id="@+id/countdown"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center" />
+
+
+    <ImageView
+        android:id="@+id/fire"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="년도 입력" />
+        android:layout_gravity="top|center"
+        android:src="@drawable/fireworks" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="년" />
-
-    <EditText
-        android:id="@+id/edit2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="월을 입력" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="월" />
-
-    <Button
-        android:id="@+id/bt1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="클릭" />
-</LinearLayout>
+    <ImageView
+        android:id="@+id/rocket"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:src="@drawable/roket"/>
 
 
-    <TextView
-        android:id="@+id/tv_date"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
-        tools:context="hongju.hansung.edu.calender.MainActivity" />
-
-    <GridView
-        android:layout_marginTop="10dp"
-        android:id="@+id/gridview"
-        android:layout_weight="1"
-        android:layout_height="0dp"
-        android:layout_width="match_parent"
-        android:numColumns="7"
-        android:listSelector="@android:color/transparent" >
-    </GridView>
-</LinearLayout>
+</FrameLayout>
 
