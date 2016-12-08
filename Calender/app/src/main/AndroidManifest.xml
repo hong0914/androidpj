@@ -17,6 +17,10 @@
         </activity>
         <activity android:name=".CalendarActivity"/>
 
+        <activity android:name=".Schedule"/>
+
+        <activity android:name=".Detail"/>
+
 
     </application>
 
