@@ -5,6 +5,7 @@
     android:layout_height="fill_parent">
 
     <LinearLayout
+        android:layout_marginTop="50dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
@@ -47,6 +48,8 @@
         android:orientation="vertical" >
 
         <GridView
+            android:layout_marginTop="50dp"
+            android:background="#FFFF90"
             android:id="@+id/grid1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

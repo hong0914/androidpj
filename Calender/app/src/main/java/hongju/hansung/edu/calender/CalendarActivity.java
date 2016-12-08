@@ -90,6 +90,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         for (int i = 1; i <= last; i++) {
             mItems.add(i + "");
         }
+
         adapter.notifyDataSetChanged();
 
     }
@@ -106,4 +107,5 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             startActivity(intent);
         }
     }
+
 }
