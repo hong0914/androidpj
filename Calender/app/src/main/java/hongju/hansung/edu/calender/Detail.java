@@ -3,7 +3,6 @@ package hongju.hansung.edu.calender;
 /**
  * Created by samsung on 2016-12-08.
  */
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,11 +13,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.support.v7.app.AppCompatActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class Detail extends AppCompatActivity implements OnClickListener{
     MyDBHelper mDBHelper;
     int mId;
     String today;
-    EditText editDate, editTitle, editTime, editMemo;
+    EditText editDate, editTitle, editTime, editLoc, editMemo;
 
     /** Called when the activity is first created. */
     @Override
@@ -39,6 +42,7 @@ public class Detail extends AppCompatActivity implements OnClickListener{
 
         if (mId == -1) {
             editDate.setText(today);
+            editTime.setText(getDateTime());
         } else {
             SQLiteDatabase db = mDBHelper.getWritableDatabase();
             Cursor cursor = db.rawQuery("SELECT * FROM today WHERE _id='" + mId
@@ -103,4 +107,12 @@ public class Detail extends AppCompatActivity implements OnClickListener{
         }
         finish();
     }
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
+
+    }
 }
+

@@ -56,6 +56,7 @@
             android:gravity="center"
             android:text="메모" />
 
+
         <EditText
             android:id="@+id/editmemo"
             android:layout_width="fill_parent"

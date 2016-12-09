@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mFrame = (FrameLayout)findViewById(R.id.activity_main);
-        mFirework = (ImageView) findViewById(R.id.fire);
+        mFirework = (ImageView) findViewById(R.id.mainscreen);
         mRocket = (ImageView) findViewById(R.id.rocket);
     }
 
@@ -41,19 +41,20 @@ public class MainActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         mScreenHeight = displaymetrics.heightPixels;
 
-         startRocketTweenAnimation();
-         startFireTweenAnimation();
+
+        startRocketTweenAnimation();
+        startFireTweenAnimation();
+    }
+
+    private void startFireTweenAnimation() {
+        Animation fire_anim = AnimationUtils.loadAnimation(this, R.anim.mainscreen);
+        mFirework.startAnimation(fire_anim);
+        fire_anim.setAnimationListener(animationListener);
     }
 
     private void startRocketTweenAnimation() {
         Animation rocket_anim = AnimationUtils.loadAnimation(this, R.anim.roket);
         mRocket.startAnimation(rocket_anim);
-    }
-
-    private void startFireTweenAnimation() {
-        Animation fire_anim = AnimationUtils.loadAnimation(this, R.anim.fire);
-        mFirework.startAnimation(fire_anim);
-        fire_anim.setAnimationListener(animationListener);
     }
 
     Animation.AnimationListener animationListener = new Animation.AnimationListener() {
