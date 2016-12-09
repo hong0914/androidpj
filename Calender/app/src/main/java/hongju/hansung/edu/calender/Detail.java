@@ -3,6 +3,7 @@ package hongju.hansung.edu.calender;
 /**
  * Created by samsung on 2016-12-08.
  */
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,7 +22,7 @@ public class Detail extends AppCompatActivity implements OnClickListener{
     MyDBHelper mDBHelper;
     int mId;
     String today;
-    EditText editDate, editTitle, editTime, editLoc, editMemo;
+    EditText editDate, editTitle, editTime, editMemo,editLocation;
 
     /** Called when the activity is first created. */
     @Override
@@ -32,6 +33,7 @@ public class Detail extends AppCompatActivity implements OnClickListener{
         editDate = (EditText) findViewById(R.id.editdate);
         editTitle = (EditText) findViewById(R.id.edittitle);
         editTime = (EditText) findViewById(R.id.edittime);
+        editLocation = (EditText) findViewById(R.id.editLocation);
         editMemo = (EditText) findViewById(R.id.editmemo);
 
         Intent intent = getIntent();
@@ -52,7 +54,8 @@ public class Detail extends AppCompatActivity implements OnClickListener{
                 editTitle.setText(cursor.getString(1));
                 editDate.setText(cursor.getString(2));
                 editTime.setText(cursor.getString(3));
-                editMemo.setText(cursor.getString(4));
+                editLocation.setText(cursor.getString(4));
+                editMemo.setText(cursor.getString(5));
             }
             mDBHelper.close();
         }
@@ -81,7 +84,8 @@ public class Detail extends AppCompatActivity implements OnClickListener{
                     db.execSQL("UPDATE today SET title='"
                             + editTitle.getText().toString() + "',date='"
                             + editDate.getText().toString() + "', time='"
-                            + editTime.getText().toString() + "', memo='"
+                            + editTime.getText().toString() + "', location='"
+                            + editLocation.getText().toString() + "', memo='"
                             + editMemo.getText().toString() + "' WHERE _id='" + mId
                             + "';");
                 } else {
@@ -89,6 +93,7 @@ public class Detail extends AppCompatActivity implements OnClickListener{
                             + editTitle.getText().toString() + "', '"
                             + editDate.getText().toString() + "', '"
                             + editTime.getText().toString() + "', '"
+                            + editLocation.getText().toString() + "', '"
                             + editMemo.getText().toString() + "');");
                 }
                 mDBHelper.close();
@@ -115,4 +120,3 @@ public class Detail extends AppCompatActivity implements OnClickListener{
 
     }
 }
-

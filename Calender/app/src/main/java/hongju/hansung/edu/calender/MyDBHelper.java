@@ -22,7 +22,7 @@ public class MyDBHelper extends SQLiteOpenHelper{
 
         db.execSQL("CREATE TABLE today(_id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + "title TEXT, " + "date TEXT , " + "time TEXT, "
-                + "memo TEXT );");
+                + "location TEXT, " + "memo TEXT );");
 
     }
 
